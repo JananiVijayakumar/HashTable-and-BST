@@ -20,26 +20,53 @@ public class BinarySearchTree {
         }
     }
 
-        public void addNodeInBST(INode node) {
-            if (node == null)
-                return;
-            // traverse the root node
-            System.out.print(node.item + "->");
-            // traverse the left child node
-            addNodeInBST(node.left);
-            // traverse the right child node
-            addNodeInBST(node.right);
+    public void insert(INode node, int value) {
+        if (value < node.item) {
+            if (node.left != null) {
+                insert(node.left, value);
+            } else {
+                System.out.println(" Inserted " + value + " to left of " + node.item);
+                node.left = new INode(value);
+            }
+        } else if (value > node.item) {
+            if (node.right != null) {
+                insert(node.right, value);
+            } else {
+                System.out.println("  Inserted " + value + " to right of "
+                        + node.item);
+                node.right = new INode(value);
+            }
         }
+    }
+    public void traverseInOrder(INode node) {
+        if (node != null) {
+            traverseInOrder(node.left);
+            System.out.print(" " + node.item);
+            traverseInOrder(node.right);
+        }
+    }
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
             //create object of tree
             BinarySearchTree tree = new BinarySearchTree();
             //create nodes of the tree
-            tree.root = new INode(56);
-            tree.root.left = new INode(30);
-            tree.root.right = new INode(70);
-            // Binary search tree traversal
-            System.out.println("Binary Search tree : ");
-            tree.addNodeInBST(tree.root);
+        System.out.println("Binary tree :");
+        System.out.println("....................................");
+        INode root = new INode(56);
+        tree.insert(root, 30);
+        tree.insert(root, 70);
+        tree.insert(root, 22);
+        tree.insert(root, 40);
+        tree.insert(root, 11);
+        tree.insert(root, 3);
+        tree.insert(root, 16);
+        tree.insert(root, 70);
+        tree.insert(root, 60);
+        tree.insert(root, 95);
+        tree.insert(root, 65);
+        tree.insert(root, 63);
+        tree.insert(root, 67);
+        System.out.println("Traversing tree in order");
+        tree.traverseInOrder(tree.root);
         }
     }
