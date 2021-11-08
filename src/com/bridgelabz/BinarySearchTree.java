@@ -46,6 +46,31 @@ public class BinarySearchTree {
         }
     }
 
+    public static void search(INode root, int key){
+        INode node = root;
+        INode parent = null;
+        while (node != null && node.item != key){
+            parent = node;
+            if (key < node.item){
+                node = node.left;
+            }
+            else {
+                node = node.right;
+            }
+        }
+        if (node == null){
+            System.out.println("key is not found!");
+            return;
+        }
+        if (parent == null){
+            System.out.println("The node with key" + key + "is root node");
+        }else if(key < parent.item){
+            System.out.println(+ key + " is in the left side of the tree ");
+        }else{
+            System.out.println(+ key + " is in the right side of the tree ");
+        }
+    }
+
     public static void main(String[] args) {
             //create object of tree
             BinarySearchTree tree = new BinarySearchTree();
@@ -66,7 +91,8 @@ public class BinarySearchTree {
         tree.insert(root, 65);
         tree.insert(root, 63);
         tree.insert(root, 67);
-        System.out.println("Traversing tree in order");
-        tree.traverseInOrder(tree.root);
+        System.out.println("........................................");
+        System.out.println("Searching key in tree :");
+        search(root, 63);
         }
     }
