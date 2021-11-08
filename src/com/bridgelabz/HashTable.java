@@ -62,6 +62,17 @@ public class HashTable {
         }
     }
 
+    public void removeWordFromPara(String str) {
+        Map<String, Integer> map = new TreeMap<>();
+
+        Iterator <String> word = map.keySet().iterator();
+        while (word.hasNext()){
+            if (word.next().equals(str)){
+                word.remove();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         HashTable hashTable = new HashTable();
         System.out.println("...................................................................");
@@ -70,5 +81,7 @@ public class HashTable {
         String paraString = "paranoids are not paranoids because they are paranoid but they keep putting themselves deliberately into paranoid avoidable situation";
         System.out.println("Given Paragraph is : " + paraString);
         hashTable.frequencyOfWordsInPara(paraString);
+        System.out.println("...................................................................");
+        hashTable.removeWordFromPara("avoidable");
     }
 }
