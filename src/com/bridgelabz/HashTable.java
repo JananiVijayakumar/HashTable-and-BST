@@ -1,5 +1,7 @@
 package com.bridgelabz;
 
+import java.util.*;
+
 public class HashTable {
     private HNode Array[];
     private int noOfArrays;
@@ -11,7 +13,7 @@ public class HashTable {
         this.size = 0;
     }
     public HashTable() {
-        this(10);
+        this(1000);
     }
 
     //Create HashNode like Linked list one link and two data types
@@ -32,56 +34,41 @@ public class HashTable {
         return index;
     }
 
-    //Put data in Hash Table using linked Node
-    public void putData(Integer key, String value) {
-        if (key == null || value == null) {
-            System.out.println("key or value are null");
-        }
+    public String getKeyValue(Integer key){
         int arrayIndex = getArrayIndex(key);
         HNode head = Array[arrayIndex];
-        // check existing node in hash table
-        while (head != null) {
-            if (head.key.equals(key)) {
-                head.value = value;
-                return;
+        while (head != null){
+            if (head.key.equals(key)){
+                return head.value;
             }
             head = head.next;
         }
-        size++;
-        head = Array[arrayIndex];
-        HNode node = new HNode(key, value);
-        node.next = head;
-        Array[arrayIndex] = node;
-
+        return null;
     }
 
-    //Checking given string no.of times in Hash Table
-    public int frequencyWordChecker(String value) {
-        HNode node = Array[0];
-        int wordCount = 0;
-        while (node != null) {
-            if (node.value.equals(value)) {
-                wordCount++;
+    //To find the frequency of words in a large paragraph phrase
+    public void frequencyOfWordsInPara(String str){
+        Map<String, Integer> map = new TreeMap<>();
+        String arr[] = str.split(" ");
+        for (int i=0; i<arr.length; i++){
+            if(map.containsKey(arr[i])){
+                map.put(arr[i], map.get(arr[i])+1);
+            }else {
+                map.put(arr[i], 1);
             }
-            node = node.next;
         }
-        return wordCount;
+        for (Map.Entry<String, Integer> entry: map.entrySet()){
+            System.out.println(entry.getKey()+ "->"+entry.getValue());
+        }
     }
 
     public static void main(String[] args) {
         HashTable hashTable = new HashTable();
-        hashTable.putData(10, "To");
-        hashTable.putData(20, "be");
-        hashTable.putData(30, "or");
-        hashTable.putData(40, "not");
-        hashTable.putData(50, "to");
-        hashTable.putData(60, "be");
-        System.out.println("The size of hash table is : " + hashTable.size);
         System.out.println("...................................................................");
-        System.out.println("Frequency of Words :");
-        System.out.println("Frequency of 'To' : "+hashTable.frequencyWordChecker("To"));
-        System.out.println("Frequency of 'be' : "+hashTable.frequencyWordChecker("be"));
-        System.out.println("Frequency of 'or' : "+hashTable.frequencyWordChecker("or"));
-        System.out.println("Frequency of 'not' : "+hashTable.frequencyWordChecker("not"));
+        //Checking the values of the key
+        System.out.println("Finding Given key value : "+hashTable.getKeyValue(1000));
+        String paraString = "paranoids are not paranoids because they are paranoid but they keep putting themselves deliberately into paranoid avoidable situation";
+        System.out.println("Given Paragraph is : " + paraString);
+        hashTable.frequencyOfWordsInPara(paraString);
     }
 }
